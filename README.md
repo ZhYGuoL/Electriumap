@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Eletriumap
 
-## Getting Started
+A Next.js application that allows users to mark and share electrical outlet locations on a map. Users need to be logged in with their Google account to add new locations.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Interactive map using Leaflet.js and OpenStreetMap
+- Firebase Authentication with Google
+- Real-time marker sharing using Firestore
+- User attribution for added locations
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Prerequisites
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Node.js 18+ and npm
+- Firebase project with Authentication and Firestore enabled
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Setup
 
-## Learn More
+1. Clone the repository
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+3. Create a Firebase project:
+   - Go to the [Firebase Console](https://console.firebase.google.com/)
+   - Create a new project
+   - Enable Google Authentication
+   - Create a Firestore database
+   - Get your Firebase configuration
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+4. Create a `.env.local` file in the root directory with your Firebase configuration:
+   ```
+   NEXT_PUBLIC_FIREBASE_API_KEY=your-api-key
+   NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your-auth-domain
+   NEXT_PUBLIC_FIREBASE_PROJECT_ID=your-project-id
+   NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your-storage-bucket
+   NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your-messaging-sender-id
+   NEXT_PUBLIC_FIREBASE_APP_ID=your-app-id
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+5. Run the development server:
+   ```bash
+   npm run dev
+   ```
 
-## Deploy on Vercel
+## Usage
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Open the application in your browser
+2. Sign in with your Google account
+3. Click on the map to add a new electrical outlet location
+4. View all added locations and who added them
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Technologies Used
+
+- Next.js 14
+- TypeScript
+- Tailwind CSS
+- Leaflet.js
+- Firebase Authentication
+- Firebase Firestore
+- React Firebase Hooks
+
+## Security
+
+The application uses environment variables to store sensitive Firebase configuration. Never commit your `.env.local` file to version control. The `.gitignore` file is already configured to ignore this file.
