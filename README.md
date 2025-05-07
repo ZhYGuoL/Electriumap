@@ -1,66 +1,80 @@
-# Eletriumap
+# Eletriumap - Electric Vehicle Charging Station Map
 
-A Next.js application that allows users to mark and share electrical outlet locations on a map. Users need to be logged in with their Google account to add new locations.
+An open-source web application that allows users to map and share electric vehicle charging station locations. Built with Next.js, Firebase, and Leaflet.
 
 ## Features
 
-- Interactive map using Leaflet.js and OpenStreetMap
-- Firebase Authentication with Google
-- Real-time marker sharing using Firestore
-- User attribution for added locations
+- 🔐 Google Authentication for user management
+- 🗺️ Interactive map interface using Leaflet
+- 📍 Add charging station locations by clicking on the map
+- 📸 Upload photos with GPS metadata to automatically add locations
+- 🔍 View all charging stations added by the community
+- 📱 Responsive design for mobile and desktop
+
+## Tech Stack
+
+- **Frontend**: Next.js 14, React, TypeScript
+- **Styling**: Tailwind CSS
+- **Maps**: Leaflet, react-leaflet
+- **Backend**: Firebase (Authentication, Firestore)
+- **Image Processing**: exifr for GPS metadata extraction
 
 ## Prerequisites
 
 - Node.js 18+ and npm
-- Firebase project with Authentication and Firestore enabled
+- A Firebase project with Firestore enabled
+- Google Cloud Platform account for authentication
 
-## Setup
+## Getting Started
 
-1. Clone the repository
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/eletriumap.git
+cd eletriumap
+```
+
 2. Install dependencies:
-   ```bash
-   npm install
-   ```
+```bash
+npm install
+```
 
-3. Create a Firebase project:
-   - Go to the [Firebase Console](https://console.firebase.google.com/)
-   - Create a new project
-   - Enable Google Authentication
-   - Create a Firestore database
-   - Get your Firebase configuration
 
-4. Create a `.env.local` file in the root directory with your Firebase configuration:
-   ```
-   NEXT_PUBLIC_FIREBASE_API_KEY=your-api-key
-   NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your-auth-domain
-   NEXT_PUBLIC_FIREBASE_PROJECT_ID=your-project-id
-   NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your-storage-bucket
-   NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your-messaging-sender-id
-   NEXT_PUBLIC_FIREBASE_APP_ID=your-app-id
-   ```
+3. Create a `.env.local` file in the project root with your Firebase configuration:
+```env
+NEXT_PUBLIC_FIREBASE_API_KEY=your_api_key
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_project_id.firebaseapp.com
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_project_id
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_project_id.appspot.com
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_messaging_sender_id
+NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
+```
 
-5. Run the development server:
-   ```bash
-   npm run dev
-   ```
+4. Run the development server:
+```bash
+npm run dev
+```
+
+5. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## Usage
 
-1. Open the application in your browser
-2. Sign in with your Google account
-3. Click on the map to add a new electrical outlet location
-4. View all added locations and who added them
+1. **Sign In**: Click the "Sign in with Google" button to authenticate
+2. **Add Locations**:
+   - Click directly on the map to add a charging station
+   - Upload a photo with GPS metadata to automatically add a location
+3. **View Stations**: All added charging stations are displayed on the map
+4. **Sign Out**: Click the "Sign out" button when done
 
-## Technologies Used
+## Contributing
 
-- Next.js 14
-- TypeScript
-- Tailwind CSS
-- Leaflet.js
-- Firebase Authentication
-- Firebase Firestore
-- React Firebase Hooks
+Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
 
-## Security
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-The application uses environment variables to store sensitive Firebase configuration. Never commit your `.env.local` file to version control. The `.gitignore` file is already configured to ignore this file.
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

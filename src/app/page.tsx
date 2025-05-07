@@ -6,6 +6,7 @@ import { collection, addDoc, getDocs, query, orderBy, serverTimestamp } from 'fi
 import dynamic from 'next/dynamic';
 import { useState, useEffect } from 'react';
 import { auth, db } from '@/lib/firebase';
+import ImageUpload from '@/components/ImageUpload';
 
 const Map = dynamic(() => import('@/components/Map'), {
   ssr: false,
@@ -75,9 +76,14 @@ export default function Home() {
     }
   };
 
+  const handleLocationFound = (lat: number, lng: number) => {
+    handleAddOutlet(lat, lng);
+  };
+
   return (
     <div style={{ position: 'relative', width: '100%', height: '100vh' }}>
       <Map outlets={outlets} onAddOutlet={handleAddOutlet} />
+      {user && <ImageUpload onLocationFound={handleLocationFound} />}
       <div style={{ 
         position: 'absolute', 
         top: '1rem', 

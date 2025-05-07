@@ -1,9 +1,9 @@
 'use client';
 
-import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, useMapEvents, useMap } from 'react-leaflet';
 import { Icon } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '@/lib/firebase';
 
@@ -39,8 +39,21 @@ function MapEvents({ onAddOutlet }: { onAddOutlet?: (lat: number, lng: number) =
   return null;
 }
 
+function ZoomToLocation({ lat, lng }: { lat: number; lng: number }) {
+  const map = useMap();
+  
+  map.setView([lat, lng], 15);
+  
+  return null;
+}
+
 export default function Map({ outlets, onAddOutlet }: MapProps) {
   const [position, setPosition] = useState<[number, number]>([51.505, -0.09]);
+  const [zoomLocation, setZoomLocation] = useState<[number, number] | null>(null);
+
+  const handleLocationFound = (lat: number, lng: number) => {
+    setZoomLocation([lat, lng]);
+  };
 
   return (
     <div style={{ height: "100vh", width: "100%", position: "relative" }}>
@@ -55,6 +68,7 @@ export default function Map({ outlets, onAddOutlet }: MapProps) {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <MapEvents onAddOutlet={onAddOutlet} />
+        {zoomLocation && <ZoomToLocation lat={zoomLocation[0]} lng={zoomLocation[1]} />}
         {outlets.map((outlet) => (
           <Marker
             key={outlet.id}

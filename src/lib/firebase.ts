@@ -16,9 +16,40 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID
 };
 
+// Validate Firebase configuration
+const validateConfig = () => {
+  const requiredFields = [
+    'apiKey',
+    'authDomain',
+    'projectId',
+    'storageBucket',
+    'messagingSenderId',
+    'appId'
+  ];
+
+  const missingFields = requiredFields.filter(field => !firebaseConfig[field as keyof typeof firebaseConfig]);
+
+  if (missingFields.length > 0) {
+    throw new Error(
+      `Missing required Firebase configuration fields: ${missingFields.join(', ')}. ` +
+      'Please check your .env.local file.'
+    );
+  }
+};
+
 // Initialize Firebase
-const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
-const auth = getAuth(app);
-const db = getFirestore(app);
+let app;
+let auth;
+let db;
+
+try {
+  validateConfig();
+  app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
+  auth = getAuth(app);
+  db = getFirestore(app);
+} catch (error) {
+  console.error('Error initializing Firebase:', error);
+  throw error;
+}
 
 export { app, auth, db };
