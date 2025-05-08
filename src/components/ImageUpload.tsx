@@ -20,17 +20,21 @@ export default function ImageUpload({ onLocationFound }: ImageUploadProps) {
     setError(null);
 
     try {
+      console.log('Processing file:', file.name);
       // Extract EXIF data
       const output = await exifr.parse(file, ['GPSLatitude', 'GPSLongitude']);
+      console.log('EXIF data:', output);
       
       if (output && output.GPSLatitude && output.GPSLongitude) {
+        console.log('Found coordinates:', { lat: output.GPSLatitude, lng: output.GPSLongitude });
         onLocationFound(output.GPSLatitude, output.GPSLongitude);
       } else {
+        console.log('No GPS data found in image');
         setError('No GPS data found in the image');
       }
     } catch (err) {
-      setError('Error reading image data');
-      console.error('Error reading EXIF data:', err);
+      console.error('Error processing image:', err);
+      setError(err instanceof Error ? err.message : 'Error reading image data');
     } finally {
       setIsLoading(false);
     }
